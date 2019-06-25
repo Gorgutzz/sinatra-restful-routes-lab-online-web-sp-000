@@ -7,3 +7,11 @@
 <input id="hidden" type="hidden" name="_method" value="Delete">
 <input type="submit" value="delete">
 </form>
+
+<form method="GET" action="/recipes/<%= @recipe.id %>/edit">
+<input type="submit" id="submit" value="Edit">
+</form>
+
+<form method="GET" action="/recipes">
+<input type="submit" id="submit" value="Recipes">
+</form>
