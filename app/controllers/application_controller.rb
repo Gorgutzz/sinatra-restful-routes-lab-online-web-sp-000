@@ -6,46 +6,50 @@ class ApplicationController < Sinatra::Base
 
   # code actions here!
   get '/recipes' do
-          @recipes = Recipe.all
-          erb :index
-      end
+    @recipes = Recipe.all
+    erb :index
+  end
 
-      get '/recipes/new' do
-          erb :new
-      end
+  # Form to create a new recipe
+  get '/recipes/new' do
+    erb :new
+  end
 
-      post '/recipes' do
-          @recipe = Recipe.new
-          @recipe.name = params[:name]
-          @recipe.ingredients = params[:ingredients]
-          @recipe.cook_time = params[:cook_time]
-          @recipe.save
-          redirect "/recipes/#{@recipe.id}"
-      end
+  # Post the new recipe
+  post '/recipes' do
+    @recipe = Recipe.create(params)
+    puts params
+    redirect to "/recipes/#{@recipe.id}"
+  end
 
-      get '/recipes/:id' do
-          @recipe = Recipe.find_by_id(params[:id])
-          erb :show
-      end
+  # Show new recipe
+  get '/recipes/:id' do
+    @recipe = Recipe.find(params[:id])
+    erb :show
+  end
 
-      get '/recipes/:id/edit' do
-          @recipe = Recipe.find_by_id(params[:id])
-          erb :edit
-      end
+  # Edit the recipe
+  get '/recipes/:id/edit' do
+    @recipe = Recipe.find(params[:id])
+    erb :edit
+  end
 
-      patch '/recipes/:id' do
-          @recipe = Recipe.find_by_id(params[:id])
-          @recipe.name = params[:name]
-          @recipe.ingredients = params[:ingredients]
-          @recipe.cook_time = params[:cook_time]
-          @recipe.save
-          redirect "/recipes/#{@recipe.id}"
-      end
+  patch '/recipes/:id' do
+    @recipe = Recipe.find(params[:id])
+    @recipe.name = params[:name]
+    @recipe.ingredients = params[:ingredients]
+    @recipe.cook_time = params[:cook_time]
+    @recipe.save
+    redirect to "/recipes/#{@recipe.id}"
+  end
 
-      delete '/recipes/:id' do
-          @recipe = Recipe.find_by_id(params[:id])
-          @recipe.delete
-          redirect '/recipes'
-      end
+  delete '/recipes/:id' do
+    puts params
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy
+    redirect to '/recipes'
+
+
+  end
 
 end
