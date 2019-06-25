@@ -1,8 +1,7 @@
-<h1>Recipes</h1>
-<% @recipes.each do |x| %>
-<p><a href="<%= "/recipes/#{x.id}" %>"> <%= x.name %> </a> </p>
-<% end %>
 
-<form method="GET" action="/recipes/new">
-<input type="submit" id="submit" value="New">
-</form>
+<% @recipes.each do |recipe| %>
+  <h2><%=recipe.name%></h2>
+  <h3>Ingredients: <%=recipe.ingredients%></h3>
+  <h3>Cooktime: <%=recipe.cook_time%></h3>
+  <a href="/recipes/<%=recipe.id%>">Link</a>
+<% end %>
